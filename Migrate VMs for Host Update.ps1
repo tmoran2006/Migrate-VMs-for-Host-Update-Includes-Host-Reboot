@@ -37,7 +37,7 @@ switch($num){
 Connect-VIServer -Server $vcsa
 
 #Queries vCenter for each host and the ID assigned to it and inserts that information into the $HostIDTable hashtable
-Get-VMHost | Select-Object -Property Name,ID | ForEach-Object {$HostIDTable[$_.Id] = $_.name}
+Get-VMHost | Select-Object -Property Name,ID | Sort-Object | ForEach-Object {$HostIDTable[$_.Id] = $_.name}
 
 #Queries vCenter server for All VMs and what host they are on and inserts that information into the $VMIDTable hashtable
 Get-VM | Select-Object -Property Name,VMHostId | ForEach-Object {$VMIDTable[$_.Name] = $_.VMHostId}
